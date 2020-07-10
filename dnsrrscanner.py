@@ -19,7 +19,7 @@ from argparse import RawTextHelpFormatter
 
 
 class DNS_RR_Scanner():
-    def __init__(self,num_of_threads = None, verbose = False, qtype = 'A'):
+    def __init__(self,num_of_threads = None,  qtype = 'A'):
         self.qtype_error_msg = "Qtype must be a valid type: A, NS, AAAA, TXT, SOA, MX"
         self.output = None
         self.valid_qtypes = ['AAAA','A','NS','TXT','SOA','MX']
@@ -31,7 +31,6 @@ class DNS_RR_Scanner():
         self.load_queue = Queue()
         self.st_time = time.time()
         self.global_lock = Lock()
-        self.is_debug = verbose
         self.num_of_threads = num_of_threads
         if self.num_of_threads == None:
             self.num_of_threads = cpu_count() * 20
@@ -185,7 +184,7 @@ if __name__ == "__main__":
     #end if
 
     qtype = pargs.qtype
-    a = DNS_RR_Scanner(num_of_threads = num_of_threads,verbose = verbose,qtype = qtype)
+    a = DNS_RR_Scanner(num_of_threads = num_of_threads,qtype = qtype)
     a.output = output_file
     for line in input_file:
         line = line.strip()
